@@ -29,7 +29,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author='Jakub Jeleński',
     author_email='jakub.jelenski@runbox.com',
-    url='https://github.com/wiceradon/SMPD',
+    url='https://github.com/Wiceradon/SMPD',
     packages=[
         'SMPD',
     ],
