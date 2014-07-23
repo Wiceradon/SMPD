@@ -14,8 +14,7 @@ SMPD
 
 University project for kNN classification.
 
-* Free software: BSD license
-* Documentation: http://SMPD.readthedocs.org.
+* Free software: MIT license
 
 Features
 --------
