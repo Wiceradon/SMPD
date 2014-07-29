@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class point(object):
     '''
     Simple model for unlabeled point in n-space

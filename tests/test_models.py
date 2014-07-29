@@ -2,18 +2,18 @@
 # -*- coding: utf-8 -*-
 
 """
-test_SMPD
+test_models
 ----------------------------------
 
-Tests for `SMPD` module.
+Tests for `models` module.
 """
 
 import unittest
 
-# from SMPD import SMPD
+# import SMPD.models.point
 
 
-class TestSmpd(unittest.TestCase):
+class test_point(unittest.TestCase):
 
     def setUp(self):
         pass
