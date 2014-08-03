@@ -3,6 +3,7 @@
 '''
 Different ways of representing point.
 '''
+import numpy as np
 
 
 class Point(object):
@@ -14,9 +15,11 @@ class Point(object):
         '''
         Initializer with one parameter which specify coordinates of point
 
-        :param iterable coordinates: coordinates in Cartesian space
+        :param 1D array coordinates: coordinates in Cartesian space
         '''
-        self.coordinates = tuple(coordinates)
+        if not coordinates:
+            raise ValueError("Construction param must not be empty") 
+        self.coordinates = np.copy(coordinates)
 
     def __str__(self):
         return "Point with coordinates: {}".format(self.coordinates)
