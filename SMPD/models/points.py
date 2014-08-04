@@ -17,9 +17,9 @@ class Point(object):
 
         :param 1D array coordinates: coordinates in Cartesian space
         '''
-        if not coordinates:
-            raise ValueError("Construction param must not be empty") 
         self.coordinates = np.copy(coordinates)
+        if not self.coordinates.size:
+            raise ValueError("Construction param must not be empty") 
 
     def __str__(self):
         return "Point with coordinates: {}".format(self.coordinates)
@@ -29,10 +29,32 @@ class Point(object):
         In un-labeled point we can only distinguish between points using
         coordinates
         '''
-        return self.coordinates == other.coordinates
+        if other.__class__ != Point:
+            raise ValueError("Compare only unlabelled points")
+        return np.array_equal(self.coordinates, other.coordinates)
 
     def _ne__(self, other):
         return not (self == other)
+
+    def __add__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            return Point(self.coordinates + other)
+        if other.__class__ == Point:
+            return Point(self.coordinates + other.coordinates)
+        raise ValueError('Only integer/float/Point addition supported')
+
+    def __radd__(self, other):
+        return self.__add__(other)
+
+    def __mul__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            return Point(self.coordinates * other)
+        if other.__class__ == Point:
+            return Point(self.coordinates * other.coordinates)
+        raise ValueError('Only integer/float/Point addition supported')
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
 
 
 class LabeledPoint(Point):
@@ -53,7 +75,7 @@ class LabeledPoint(Point):
 
     def __str__(self):
         return "Point from group {} with \
-                coordinates: {}".formate(self.label, self.coordinates)
+                coordinates: {}".format(self.label, self.coordinates)
 
     def __eq__(self, other):
         '''
