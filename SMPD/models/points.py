@@ -19,7 +19,7 @@ class Point(object):
         '''
         self.coordinates = np.copy(coordinates)
         if not self.coordinates.size:
-            raise ValueError("Construction param must not be empty") 
+            raise ValueError("Construction param must not be empty")
 
     def __str__(self):
         return "Point with coordinates: {}".format(self.coordinates)

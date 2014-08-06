@@ -13,6 +13,7 @@ import numpy as np
 from SMPD.models import distributions
 from SMPD.models import points
 
+
 class test_gaussian(unittest.TestCase):
 
     def setUp(self):
@@ -64,17 +65,17 @@ different but objects are equal!'
         scalar = 2
         vect_add = points.Point([3, 5, 7])
         scalar_add = points.Point([3, 4, 5])
-        
+
         res1 = p1 + p2
         assert res1 == vect_add, 'Error, result of addtion is\
 {}'.format(res1.coordinates)
         res1 = p1 + scalar
         assert res1 == scalar_add, 'Error, result of addition is\
 {}'.format(res1.coordinates)
-        
+
         try:
             res1 = p1 + "as"
-            assert True == False, 'Error, string added to point'
+            assert False, 'Error, string added to point'
         except ValueError:
             pass
 
@@ -84,17 +85,17 @@ different but objects are equal!'
         scalar = 2
         vect_mul = points.Point([2, 6, 12])
         scalar_mul = points.Point([2, 4, 6])
-        
+
         res1 = p1 * p2
         assert res1 == vect_mul, 'Error, result of multiplication is\
 {}'.format(res1.coordinates)
         res1 = p1 * scalar
         assert res1 == scalar_mul, 'Error, result of multiplication is\
 {}'.format(res1.coordinates)
-        
+
         try:
             res1 = p1 * "as"
-            assert True == False, 'Error, string multiplied with point'
+            assert False, 'Error, string multiplied with point'
         except ValueError:
             pass
 
