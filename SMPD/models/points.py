@@ -57,7 +57,7 @@ class Point(object):
         return self.__mul__(other)
 
 
-class LabeledPoint(Point):
+class LabelledPoint(Point):
     '''
     Extension of :class Point with main purpose of representing classified
     point.
