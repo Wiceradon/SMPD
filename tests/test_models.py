@@ -100,5 +100,53 @@ different but objects are equal!'
             pass
 
 
+class test_labelled_point(unittest.TestCase):
+
+    def setUp(self):
+        self.p1 = points.LabelledPoint([1, 2, 3], "g1")
+        self.p2 = points.LabelledPoint([1, 2, 3], "g1")
+        self.p3 = points.LabelledPoint([2, 3, 3], "g1")
+        self.p4 = points.LabelledPoint([1, 2, 3], "g2")
+        self.p5 = points.LabelledPoint([1, 2, 3, 4], "g3")
+        self.p6 = points.LabelledPoint([1, 2, 3, 3], "g1")
+
+        self.err1 = "ERROR: point {} and {} not equal!"
+        self.err2 = "ERROR: point {} and {} equal!"
+        self.err3 = "ERROR: Incorect operation {} for point {} and {}"
+
+    def test_equal(self):
+        assert self.p1 == self.p2, self.err1.format(self.p1, self.p2)
+        assert self.p1 != self.p3, self.err2.format(self.p1, self.p2)
+        assert self.p1 != self.p4, self.err2.format(self.p1, self.p2)
+        try:
+            self.p1 == self.p6
+            assert False, self.err3.format("==", self.p1, self.p6)
+        except Exception:
+            pass
+
+    def test_add(self):
+        res = self.p1 + self.p3
+        correct = points.LabelledPoint([3, 5, 6], "g1")
+        assert res == correct, self.err1.format(res, correct)
+        try:
+            res = self.p1 + self.p4
+            assert False, self.err3.format("+", self.p1, self.p4)
+        except Exception:
+            pass
+        res = self.p1 + 2
+        correct = points.LabelledPoint([3, 4, 5], "g1")
+        assert res == correct, self.err1.format(res, correct)
+        try:
+            res = self.p1 + self.p6
+            assert False, self.err3.format("+", self.p1, self.p6)
+        except Exception:
+            pass
+        try:
+            res = self.p1 + "1"
+            assert False, self.err3.format("+", self.p1, "string(1)")
+        except Exception:
+            pass
+
+
 if __name__ == '__main__':
     unittest.main()

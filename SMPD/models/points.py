@@ -70,7 +70,7 @@ class LabelledPoint(Point):
         :param iterable coordinates: coordinates of a point in Cartesian space
         :param label: representaion of a group to which point belong
         '''
-        super(LabeledPoint, self).__init__(coordinates)
+        super(LabelledPoint, self).__init__(coordinates)
         self.label = label
 
     def __str__(self):
@@ -82,8 +82,13 @@ class LabelledPoint(Point):
         Two point with the same position but belongings to different goups
         aren't exactly the same (ex. one of them could be a noise)
         '''
-        return self.coordinates == other.coordinates \
+        if other.__class__ != LabelledPoint:
+            raise ValueError("Compare only unlabelled points")
+        return np.array_equal(self.coordinates, other.coordinates) \
             and self.label == other.label
 
     def __ne__(self, other):
         return not (self == other)
+
+    def __add__(self, other):
+        return LabelledPoint(self.coordinates, self.label)
