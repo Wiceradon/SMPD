@@ -147,6 +147,29 @@ class test_labelled_point(unittest.TestCase):
         except Exception:
             pass
 
+    def test_multiplication(self):
+        res = self.p1 * self.p3
+        correct = points.LabelledPoint([2, 6, 9], "g1")
+        assert res == correct, self.err1.format(res, correct)
+        try:
+            res = self.p1 * self.p4
+            assert False, self.err3.format("*", self.p1, self.p4)
+        except Exception:
+            pass
+        res = self.p1 * 2
+        correct = points.LabelledPoint([2, 4, 6], "g1")
+        assert res == correct, self.res1.format(res, correct)
+        try:
+            res = self.p1 * self.p6
+            assert False, self.err3.format("*", self.p1, self.p6)
+        except Exception:
+            pass
+        try:
+            res = self.p1 * "1"
+            assert False, self.err3.format("*", self.p1, "string(1)")
+        except Exception:
+            pass
+
 
 if __name__ == '__main__':
     unittest.main()

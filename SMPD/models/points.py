@@ -37,6 +37,10 @@ class Point(object):
         return not (self == other)
 
     def __add__(self, other):
+        '''
+        You can only add integer/float and :class Point to another
+        :class Point
+        '''
         if isinstance(other, int) or isinstance(other, float):
             return Point(self.coordinates + other)
         if other.__class__ == Point:
@@ -47,6 +51,10 @@ class Point(object):
         return self.__add__(other)
 
     def __mul__(self, other):
+        '''
+        You can only multiply integer/float and :class Point with another
+        :class Point
+        '''
         if isinstance(other, int) or isinstance(other, float):
             return Point(self.coordinates * other)
         if other.__class__ == Point:
@@ -91,4 +99,33 @@ class LabelledPoint(Point):
         return not (self == other)
 
     def __add__(self, other):
-        return LabelledPoint(self.coordinates, self.label)
+        '''
+        Addition allowed for integer/float another :class LabelledPoint iff
+        groups are the same
+        '''
+        if isinstance(other, int) or isinstance(other, float):
+            return LabelledPoint(self.coordinates + other, self.label)
+        if other.__class__ == LabelledPoint and other.label == self.label:
+            return LabelledPoint(self.coordinates + other.coordinates,
+                                 self.label)
+        raise ValueError("Addition allowed only for integer/float and\
+                        LabelledPoint of the same group")
+
+    def __radd__(self, other):
+        return self.__add__(other)
+
+    def __mul__(self, other):
+        '''
+        Multiplication allowed for integer/float another :class LabelledPoint
+        iff groups are the same
+        '''
+        if isinstance(other, int) or isinstance(other, float):
+            return LabelledPoint(self.coordinates * other, self.label)
+        if other.__class__ == LabelledPoint and other.label == self.label:
+            return LabelledPoint(self.coordinates * other.coordinates,
+                                 self.label)
+        raise ValueError("Multiplication allowed only for integer/float and\
+                        LabelledPoint of the same group")
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
